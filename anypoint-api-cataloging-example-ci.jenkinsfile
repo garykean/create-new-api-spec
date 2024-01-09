@@ -97,6 +97,9 @@ pipeline {
                         rm -r exchange_modules;
                         """
                     dir('/api/${env.API_ASSET_ID}/api-template')
+                        {
+                            sh "pwd"
+                        }
                     contentReplace(
                                   configs: [
                                     fileContentReplaceConfig(
