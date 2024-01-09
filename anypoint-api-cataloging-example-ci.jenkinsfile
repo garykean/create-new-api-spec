@@ -109,7 +109,7 @@ pipeline {
                                       ],
                                       fileEncoding: 'UTF-8',
                                       lineSeparator: 'Unix',
-                                      filePath: 'api.raml'
+                                      filePath: '/api/${env.API_ASSET_ID}/api-template/api.raml'
                                     )
                                   ]
                                 )
