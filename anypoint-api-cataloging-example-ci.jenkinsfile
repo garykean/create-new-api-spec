@@ -56,7 +56,7 @@ pipeline {
                 script {
                     sh """mkdir -p api;
                         cd api;
-                        mkdir ${env.API_ASSET_ID}
+                        mkdir -p  ${env.API_ASSET_ID}
                         cd ${env.API_ASSET_ID}
                         echo "Download API template from Anypoint Platform'";
                         errorCode="Error";
