@@ -75,13 +75,44 @@ pipeline {
             }    
             post {
                 success {
-                    echo "...Cataloging API in Anypoint Platform succeed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                    echo "...Downloading API template from Anypoint Platform succeed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
                 } 
                 failure {
-                    echo "...Cataloging API in Anypoint Platform failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                    echo "...Downloading API template from  Anypoint Platform failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
                 }
             }
         }
+
+        stage('Modify API templae') {
+            steps {
+                script {
+                    sh """mkdir api;
+                        cd api;
+                        echo "Download API template from Anypoint Platform'";
+                        errorCode="Error";
+                        commandOutput=\$(rm -r exchange_modules);
+                        if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
+                            then
+                                echo "Error while modifying the API template - Please check the logs";
+                                exit 1;
+                            else
+                                echo "Success in modifying the API template";
+                                exit 0;
+                            fi
+                        """   
+                }
+            }    
+            post {
+                success {
+                    echo "...Modifying API template succeed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                } 
+                failure {
+                    echo "...Modifying API templam failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                }
+            }
+        }
+
+
     }
     post {
         success {
