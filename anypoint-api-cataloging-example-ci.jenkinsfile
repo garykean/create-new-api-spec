@@ -88,8 +88,7 @@ pipeline {
         stage('Modify API templae') {
             steps {
                 script {
-                    sh """mkdir api;
-                        cd api;
+                    sh """
                         echo "Download API template from Anypoint Platform'";
                         errorCode="Error";
                         commandOutput=\$(rm -r exchange_modules);
