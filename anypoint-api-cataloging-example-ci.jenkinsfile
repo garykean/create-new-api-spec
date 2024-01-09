@@ -93,7 +93,7 @@ pipeline {
                         errorCode="Error";
                         cd api-template
                         rm -r exchange_modules;
-
+                        """  
                 }
             }    
             post {
