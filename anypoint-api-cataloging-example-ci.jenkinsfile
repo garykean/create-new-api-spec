@@ -96,7 +96,7 @@ pipeline {
                         cd api-template
                         rm -r exchange_modules;
                         """
-                    def apiUrl = /api/${env.API_ASSET_ID}/api-template/api.raml
+                    def apiUrl = "/api/" + ${env.API_ASSET_ID} + "/api-template/api.raml"
                     contentReplace(
                                   configs: [
                                     fileContentReplaceConfig(
