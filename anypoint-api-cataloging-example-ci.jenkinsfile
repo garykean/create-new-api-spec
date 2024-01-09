@@ -96,7 +96,6 @@ pipeline {
                         cd api-template
                         rm -r exchange_modules;
                         """
-                    echo "/api/" + ${env.API_ASSET_ID} + "/api-template/api.raml"
                     contentReplace(
                                   configs: [
                                     fileContentReplaceConfig(
@@ -110,7 +109,7 @@ pipeline {
                                       ],
                                       fileEncoding: 'UTF-8',
                                       lineSeparator: 'Unix',
-                                      filePath: "api.raml"
+                                      filePath: 'api.raml'
                                     )
                                   ]
                                 )
