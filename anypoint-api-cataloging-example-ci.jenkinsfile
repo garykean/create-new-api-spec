@@ -54,7 +54,8 @@ pipeline {
             steps {
                 script {
                     def branchName = scm.branches[0].name
-                    sh """cd api;
+                    sh """mkdir api;
+                        cd api;
                         echo "Download API template from Anypoint Platform'";
                         errorCode="Error";
                         commandOutput=\$(anypoint-cli-v4 designcenter project download 'API Template' api-template \
