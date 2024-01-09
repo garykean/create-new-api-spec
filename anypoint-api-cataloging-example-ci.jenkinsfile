@@ -85,7 +85,7 @@ pipeline {
             }
         }
 
-        stage('Modify API templae') {
+        stage('Modify API template') {
             steps {
                 script {
                     sh """
@@ -95,8 +95,26 @@ pipeline {
                         errorCode="Error";
                         cd api-template
                         rm -r exchange_modules;
-                        """  
+                        """
+                    contentReplace(
+                                  configs: [
+                                    fileContentReplaceConfig(
+                                      configs: [
+                                        fileContentReplaceItemConfig(
+                                          search: '(?:title|description): API Template',
+                                          replace: '${env.API_NAME}',
+                                          matchCount: 1,
+                                          verbose: false,
+                                        )
+                                      ],
+                                      fileEncoding: 'UTF-8',
+                                      lineSeparator: 'Unix',
+                                      filePath: 'api.raml'
+                                    )
+                                  ]
+                                )
                 }
+                
             }    
             post {
                 success {
