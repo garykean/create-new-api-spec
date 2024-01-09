@@ -91,16 +91,9 @@ pipeline {
                     sh """
                         echo "Download API template from Anypoint Platform'";
                         errorCode="Error";
-                        commandOutput=\$(rm -r exchange_modules);
-                        if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
-                            then
-                                echo "Error while modifying the API template - Please check the logs";
-                                exit 1;
-                            else
-                                echo "Success in modifying the API template";
-                                exit 0;
-                            fi
-                        """   
+                        cd api-template
+                        rm -r exchange_modules;
+
                 }
             }    
             post {
