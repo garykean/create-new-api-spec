@@ -96,7 +96,7 @@ pipeline {
                         cd api-template
                         rm -r exchange_modules;
                         """
-                    dir('/api/' + ${env.API_ASSET_ID} + '/api-template')
+                    dir("/api/${env.API_ASSET_ID}/api-template")
                         {
                             sh "pwd"
                         }
