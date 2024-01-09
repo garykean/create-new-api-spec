@@ -110,7 +110,7 @@ pipeline {
                                       ],
                                       fileEncoding: 'UTF-8',
                                       lineSeparator: 'Unix',
-                                      filePath: "${apiUrl}"
+                                      filePath: "${env.API_ASSET_ID}"
                                     )
                                   ]
                                 )
