@@ -89,7 +89,9 @@ pipeline {
             steps {
                 script {
                     sh """
-                        echo "Download API template from Anypoint Platform'";
+                        cd api;
+                        cd ${env.API_ASSET_ID}
+                        echo "Modify API Template";
                         errorCode="Error";
                         cd api-template
                         rm -r exchange_modules;
