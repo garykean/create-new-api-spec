@@ -129,6 +129,40 @@ pipeline {
                                     )
                                   ]
                                 )
+                    contentReplace(
+                                  configs: [
+                                    fileContentReplaceConfig(
+                                      configs: [
+                                        fileContentReplaceItemConfig(
+                                          search: 'api-template',
+                                          replace: "${env.API_ASSET_ID}",
+                                          matchCount: 1,
+                                          verbose: false,
+                                        )
+                                      ],
+                                      fileEncoding: 'UTF-8',
+                                      lineSeparator: 'Unix',
+                                      filePath: 'exchange.json'
+                                    )
+                                  ]
+                                )
+                    contentReplace(
+                                  configs: [
+                                    fileContentReplaceConfig(
+                                      configs: [
+                                        fileContentReplaceItemConfig(
+                                          search: 'API Template',
+                                          replace: "${env.API_NAME}",
+                                          matchCount: 1,
+                                          verbose: false,
+                                        )
+                                      ],
+                                      fileEncoding: 'UTF-8',
+                                      lineSeparator: 'Unix',
+                                      filePath: 'exchange.json'
+                                    )
+                                  ]
+                                )
                     sh """
                         echo "Change api file name";
                         errorCode="Error";
