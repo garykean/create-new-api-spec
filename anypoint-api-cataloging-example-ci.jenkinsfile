@@ -244,6 +244,40 @@ pipeline {
             }
         }
 
+        stage('Create Exchange Placeholder') {
+            steps {
+                dir("api/${env.API_ASSET_ID}/api-template") {
+                    sh """
+                        echo "Create Exchange Placeholder'";
+                        errorCode="Error";
+                        zip -r api.zip .
+                        commandOutput=\$(anypoint-cli-v4 exchange project upload --name '${env.API_NAME}' . \
+                        --description 'Test description' --type rest-api --files='{"raml.zip":"api.zip"}' \
+                        --properties='{"apiVersion":"v0", "mainFile":"${env.API_ASSET_ID}.raml"}' \
+                        --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
+                        --environment=${env.ENVIRONMENT} \
+                        --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
+                        if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
+                            then
+                                echo "Error while creating Exchange Placeholder- Please check the logs";
+                                exit 1;
+                            else
+                                echo "Success while creating Exchange Placeholder  ";
+                                exit 0;
+                            fi
+                        """   
+                }
+            }    
+            post {
+                success {
+                    echo "...Creating Exchange Placeholder succeeded for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                } 
+                failure {
+                    echo "...Creating Exchange Placeholder failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                }
+            }
+        }
+
 
     }
     post {
