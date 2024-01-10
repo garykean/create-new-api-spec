@@ -89,7 +89,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                        chmod -R 774 api;
+                        chmod -R 777 api;
                         cd api;                        
                         cd ${env.API_ASSET_ID}
                         echo "Modify API Template";
