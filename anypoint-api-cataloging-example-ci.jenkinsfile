@@ -164,7 +164,7 @@ pipeline {
 
         stage('Upload API template to new Design Center Project') {
             steps {
-                script {
+                dir("api/${env.API_ASSET_ID}/api-template") {
                     sh """
                         echo "Upload API template to new Design Center Project'";
                         errorCode="Error";
