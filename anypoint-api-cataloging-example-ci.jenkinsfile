@@ -112,6 +112,23 @@ pipeline {
                                     )
                                   ]
                                 )
+                    contentReplace(
+                                  configs: [
+                                    fileContentReplaceConfig(
+                                      configs: [
+                                        fileContentReplaceItemConfig(
+                                          search: 'api.raml',
+                                          replace: "${env.API_ASSET_ID}.raml",
+                                          matchCount: 1,
+                                          verbose: false,
+                                        )
+                                      ],
+                                      fileEncoding: 'UTF-8',
+                                      lineSeparator: 'Unix',
+                                      filePath: 'exchange.json'
+                                    )
+                                  ]
+                                )
                     sh """
                         echo "Change api file name";
                         errorCode="Error";
