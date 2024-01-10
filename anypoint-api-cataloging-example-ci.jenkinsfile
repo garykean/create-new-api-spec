@@ -250,7 +250,7 @@ pipeline {
                     sh """
                         echo "Create Exchange Placeholder'";
                         errorCode="Error";
-                        zip -r api.zip . ;
+                        zip zipFile: 'api.zip';
                         commandOutput=\$(anypoint-cli-v4 exchange project upload --name '${env.API_NAME}' . \
                         --description 'Test description' --type rest-api --files='{"raml.zip":"api.zip"}' \
                         --properties='{"apiVersion":"v0", "mainFile":"${env.API_ASSET_ID}.raml"}' \
