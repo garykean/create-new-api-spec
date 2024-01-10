@@ -143,10 +143,41 @@ pipeline {
                         --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
                         if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
                             then
-                                echo "Error while creating new Design Center Projec - Please check the logs";
+                                echo "Error while creating new Design Center Project - Please check the logs";
                                 exit 1;
                             else
                                 echo "Success while creating new Design Center Project ";
+                                exit 0;
+                            fi
+                        """   
+                }
+            }    
+            post {
+                success {
+                    echo "...Creating new Design Center Projectm succeeded for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                } 
+                failure {
+                    echo "...Creating new Design Center Project failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                }
+            }
+        }
+
+        stage('Upload API template to new Design Center Project') {
+            steps {
+                script {
+                    sh """
+                        echo "Upload API template to new Design Center Project'";
+                        errorCode="Error";
+                        commandOutput=\$(anypoint-cli-v4 designcenter project upload '${env.API_NAME}' . \
+                        --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
+                        --environment=${env.ENVIRONMENT} \
+                        --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
+                        if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
+                            then
+                                echo "Error while uploading API template to new Design Center Project - Please check the logs";
+                                exit 1;
+                            else
+                                echo "Success while uploading API template to new Design Center Project  ";
                                 exit 0;
                             fi
                         """   
