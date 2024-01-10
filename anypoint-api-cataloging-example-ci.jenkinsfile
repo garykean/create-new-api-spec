@@ -101,23 +101,7 @@ pipeline {
                         {
                             sh "pwd"
                         }
-                    contentReplace(
-                                  configs: [
-                                    fileContentReplaceConfig(
-                                      configs: [
-                                        fileContentReplaceItemConfig(
-                                          search: '(?:title|description): API Template',
-                                          replace: '${env.API_NAME}',
-                                          matchCount: 1,
-                                          verbose: false,
-                                        )
-                                      ],
-                                      fileEncoding: 'UTF-8',
-                                      lineSeparator: 'Unix',
-                                      filePath: 'api.raml'
-                                    )
-                                  ]
-                                )
+
                 }
                 
             }    
