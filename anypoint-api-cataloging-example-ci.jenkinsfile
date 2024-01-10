@@ -97,11 +97,23 @@ pipeline {
                         cd api-template
                         rm -r exchange_modules;                        
                         """
-                    dir("/api/${env.API_ASSET_ID}/api-template")
-                        {
-                            sh "pwd"
-                            echo "Modify API Template";
-                        }
+                    contentReplace(
+                                  configs: [
+                                    fileContentReplaceConfig(
+                                      configs: [
+                                        fileContentReplaceItemConfig(
+                                          search: '(?:title|description): API Template',
+                                          replace: '${env.API_NAME}',
+                                          matchCount: 1,
+                                          verbose: false,
+                                        )
+                                      ],
+                                      fileEncoding: 'UTF-8',
+                                      lineSeparator: 'Unix',
+                                      filePath: 'api.raml'
+                                    )
+                                  ]
+                                )
 
                 }
                 
