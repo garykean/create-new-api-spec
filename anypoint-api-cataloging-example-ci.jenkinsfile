@@ -99,7 +99,7 @@ pipeline {
                                     fileContentReplaceConfig(
                                       configs: [
                                         fileContentReplaceItemConfig(
-                                          search: '(?:title|description): API Template',
+                                          search: '<API-Name>',
                                           replace: "${env.API_NAME}",
                                           matchCount: 1,
                                           verbose: false,
