@@ -90,11 +90,12 @@ pipeline {
                 script {
                     sh """
                         cd api;
+                        chmod -R 774 .
                         cd ${env.API_ASSET_ID}
                         echo "Modify API Template";
                         errorCode="Error";
                         cd api-template
-                        rm -r exchange_modules;
+                        rm -r exchange_modules;                        
                         """
                     dir("/api/${env.API_ASSET_ID}/api-template")
                         {
