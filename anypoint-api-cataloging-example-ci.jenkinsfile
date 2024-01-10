@@ -131,6 +131,37 @@ pipeline {
             }
         }
 
+        stage('Create new Design Center Project') {
+            steps {
+                script {
+                    sh """
+                        echo "Create new Design Center Project'";
+                        errorCode="Error";
+                        commandOutput=\$(anypoint-cli-v4 designcenter project create '${env.API_NAME}' --type raml \
+                        --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
+                        --environment=${env.ENVIRONMENT} \
+                        --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
+                        if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
+                            then
+                                echo "Error while creating new Design Center Projec - Please check the logs";
+                                exit 1;
+                            else
+                                echo "Success while creating new Design Center Project ";
+                                exit 0;
+                            fi
+                        """   
+                }
+            }    
+            post {
+                success {
+                    echo "...Downloading API template from Anypoint Platform succeed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                } 
+                failure {
+                    echo "...Downloading API template from  Anypoint Platform failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                }
+            }
+        }
+
 
     }
     post {
