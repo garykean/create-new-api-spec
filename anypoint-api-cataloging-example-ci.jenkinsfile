@@ -88,7 +88,7 @@ pipeline {
         stage('Modify API template') {
             steps {
                 
-                dir('api/${env.API_ASSET_ID}/api-template') {
+                dir("api/${env.API_ASSET_ID}/api-template") {
                     sh """
                         echo "Modify API Template";
                         errorCode="Error";
