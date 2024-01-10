@@ -111,6 +111,11 @@ pipeline {
                                     )
                                   ]
                                 )
+                    sh """
+                        echo "Change api file name";
+                        errorCode="Error";
+                        mv api.raml ${env.API_ASSET_ID}.raml;                     
+                        """
 
                 }
                 
