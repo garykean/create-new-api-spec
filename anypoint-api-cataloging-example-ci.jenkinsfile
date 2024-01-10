@@ -87,14 +87,11 @@ pipeline {
 
         stage('Modify API template') {
             steps {
-                script {
+                
+                dir('/api/${env.API_ASSET_ID}/api-template') {
                     sh """
-                        chmod -R 777 api;
-                        cd api;                        
-                        cd ${env.API_ASSET_ID}
                         echo "Modify API Template";
                         errorCode="Error";
-                        cd api-template
                         rm -r exchange_modules;                        
                         """
                     contentReplace(
