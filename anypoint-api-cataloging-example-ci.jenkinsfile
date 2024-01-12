@@ -92,8 +92,7 @@ pipeline {
                 dir("api/${env.API_ASSET_ID}/api-template") {
                     sh """
                         echo "Modify API Template";
-                        errorCode="Error";
-                        rm -r exchange_modules;                        
+                        errorCode="Error";                    
                         """
                     contentReplace(
                                   configs: [
@@ -213,37 +212,6 @@ pipeline {
             }
         }
 
-        stage('Upload API template to new Design Center Project') {
-            steps {
-                dir("api/${env.API_ASSET_ID}/api-template") {
-                    sh """
-                        echo "Upload API template to new Design Center Project'";
-                        errorCode="Error";
-                        commandOutput=\$(anypoint-cli-v4 designcenter project upload '${env.API_NAME}' . \
-                        --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
-                        --environment=${env.ENVIRONMENT} \
-                        --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
-                        if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
-                            then
-                                echo "Error while uploading API template to new Design Center Project - Please check the logs";
-                                exit 1;
-                            else
-                                echo "Success while uploading API template to new Design Center Project  ";
-                                exit 0;
-                            fi
-                        """   
-                }
-            }    
-            post {
-                success {
-                    echo "...Downloading API template from Anypoint Platform succeed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
-                } 
-                failure {
-                    echo "...Downloading API template from  Anypoint Platform failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
-                }
-            }
-        }
-
         stage('Create Exchange Placeholder') {
             steps {
                 dir("api/${env.API_ASSET_ID}/api-template") {
@@ -277,6 +245,40 @@ pipeline {
                 }
             }
         }
+
+        stage('Upload API template to new Design Center Project') {
+            steps {
+                dir("api/${env.API_ASSET_ID}/api-template") {
+                    sh """
+                        echo "Upload API template to new Design Center Project'";
+                        errorCode="Error";
+                        rm -r exchange_modules;    
+                        commandOutput=\$(anypoint-cli-v4 designcenter project upload '${env.API_NAME}' . \
+                        --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
+                        --environment=${env.ENVIRONMENT} \
+                        --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
+                        if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
+                            then
+                                echo "Error while uploading API template to new Design Center Project - Please check the logs";
+                                exit 1;
+                            else
+                                echo "Success while uploading API template to new Design Center Project  ";
+                                exit 0;
+                            fi
+                        """   
+                }
+            }    
+            post {
+                success {
+                    echo "...Downloading API template from Anypoint Platform succeed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                } 
+                failure {
+                    echo "...Downloading API template from  Anypoint Platform failed for ${env.BUILD_VERSION}: ${currentBuild.currentResult}"
+                }
+            }
+        }
+
+
 
 
     }
