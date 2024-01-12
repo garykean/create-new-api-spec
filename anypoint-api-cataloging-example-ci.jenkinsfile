@@ -162,6 +162,23 @@ pipeline {
                                     )
                                   ]
                                 )
+                    contentReplace(
+                                  configs: [
+                                    fileContentReplaceConfig(
+                                      configs: [
+                                        fileContentReplaceItemConfig(
+                                          search: '"version": "1.0.0"',
+                                          replace: ""version": "0.0.0"",
+                                          matchCount: 1,
+                                          verbose: false,
+                                        )
+                                      ],
+                                      fileEncoding: 'UTF-8',
+                                      lineSeparator: 'Unix',
+                                      filePath: 'exchange.json'
+                                    )
+                                  ]
+                                )
                     sh """
                         echo "Change api file name";
                         errorCode="Error";
