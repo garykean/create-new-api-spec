@@ -251,7 +251,7 @@ pipeline {
                     sh """
                         echo "Create Exchange Placeholder'";
                         errorCode="Error";
-                        commandOutput=\$(anypoint-cli-v4 exchange project upload --name '${env.API_NAME}' . \
+                        commandOutput=\$(anypoint-cli-v4 exchange asset upload --name '${env.API_NAME}' . \
                         --description 'Test description' --type rest-api --files='{"raml.zip":"api.zip"}' \
                         --properties='{"apiVersion":"v0", "mainFile":"${env.API_ASSET_ID}.raml"}' \
                         --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
