@@ -179,6 +179,23 @@ pipeline {
                                     )
                                   ]
                                 )
+                    contentReplace(
+                                  configs: [
+                                    fileContentReplaceConfig(
+                                      configs: [
+                                        fileContentReplaceItemConfig(
+                                          search: '\"groupId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\",',
+                                          replace: "\"groupId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\", \"organizationId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\",\"apiVersion\": \"v0\",",
+                                          matchCount: 1,
+                                          verbose: false,
+                                        )
+                                      ],
+                                      fileEncoding: 'UTF-8',
+                                      lineSeparator: 'Unix',
+                                      filePath: 'exchange.json'
+                                    )
+                                  ]
+                                )
                     sh """
                         echo "Change api file name";
                         errorCode="Error";
