@@ -185,7 +185,7 @@ pipeline {
                                       configs: [
                                         fileContentReplaceItemConfig(
                                           search: "\"name\": \"${env.API_NAME}\"",
-                                          replace: "\"name\": \"${env.API_NAME}\", \"organizationId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\",\"apiVersion\": \"v0\",",
+                                          replace: "\"name\": \"${env.API_NAME}\", \"organizationId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\",\"apiVersion\": \"v0\"",
                                           matchCount: 1,
                                           verbose: false,
                                         )
