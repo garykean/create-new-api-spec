@@ -184,7 +184,8 @@ pipeline {
                                     fileContentReplaceConfig(
                                       configs: [
                                         fileContentReplaceItemConfig(
-                                          search: "\"groupId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\",",
+                                          search: "\"groupId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\",
+\"name\": \"${env.API_NAME}\"",
                                           replace: "\"groupId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\", \"organizationId\": \"${env.ANYPOINT_PLATFORM_ORG_ID}\",\"apiVersion\": \"v0\",",
                                           matchCount: 1,
                                           verbose: false,
