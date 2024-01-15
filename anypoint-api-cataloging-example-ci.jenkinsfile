@@ -285,7 +285,8 @@ pipeline {
                     sh """
                         echo "Upload API template to new Design Center Project'";
                         errorCode="Error";
-                        rm -r exchange_modules;    
+                        rm -r exchange_modules;
+                        rm api.zip;
                         commandOutput=\$(anypoint-cli-v4 designcenter project upload '${env.API_NAME}' . \
                         --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
                         --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
