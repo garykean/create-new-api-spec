@@ -65,7 +65,6 @@ pipeline {
                         errorCode="Error";
                         commandOutput=\$(anypoint-cli-v4 designcenter project download 'API Template' api-template \
                         --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
-                        --environment=${env.ENVIRONMENT} \
                         --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
                         if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
                             then
@@ -225,7 +224,6 @@ pipeline {
                         errorCode="Error";
                         commandOutput=\$(anypoint-cli-v4 designcenter project create '${env.API_NAME}' --type raml \
                         --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
-                        --environment=${env.ENVIRONMENT} \
                         --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
                         if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
                             then
@@ -290,7 +288,6 @@ pipeline {
                         rm -r exchange_modules;    
                         commandOutput=\$(anypoint-cli-v4 designcenter project upload '${env.API_NAME}' . \
                         --host=${env.ANYPOINT_PLATFORM_URL} --organization=${env.ANYPOINT_PLATFORM_ORG_ID} \
-                        --environment=${env.ENVIRONMENT} \
                         --client_id=${env.CLIENT_ID} --client_secret=${env.CLIENT_SECRET});
                         if [[ \\"\$commandOutput\\" == *\\"\$errorCode\\"* ]]
                             then
